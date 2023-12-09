@@ -23,5 +23,5 @@ ML_MODULES ?= \
 	adv_int \
 	crop_rec \
 	edmac \
-	yolo \
 	astro \
+    sd_uhs \

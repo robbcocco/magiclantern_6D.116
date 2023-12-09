@@ -30,7 +30,7 @@
 #include <beep.h>
 #include <propvalues.h>
 #include <raw.h>
-#include "ml-cbr.h"
+#include <ml-cbr.h>
 
 #include "../trace/trace.h"
 #include "../mlv_rec/mlv.h"
