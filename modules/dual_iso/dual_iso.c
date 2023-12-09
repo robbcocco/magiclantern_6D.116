@@ -1004,11 +1004,11 @@ static unsigned int isoless_init()
     {
         is_6d = 1;
 
-        FRAME_CMOS_ISO_START = 0x40452196; // CMOS register 0003 - for LiveView, ISO 100 (check in movie mode, not photo!)
+        FRAME_CMOS_ISO_START = 0x404e6196; // CMOS register 0003 - for LiveView, ISO 100 (check in movie mode, not photo!)
         FRAME_CMOS_ISO_COUNT =          7; // from ISO 100 to 6400
         FRAME_CMOS_ISO_SIZE  =         32; // distance between ISO 100 and ISO 200 addresses, in bytes
 
-        PHOTO_CMOS_ISO_START = 0x40450E08; // CMOS register 0003 - for photo mode, ISO 100
+        PHOTO_CMOS_ISO_START = 0x404e4e08; // CMOS register 0003 - for photo mode, ISO 100
         PHOTO_CMOS_ISO_COUNT =          7; // from ISO 100 to 6400 (last real iso!)
         PHOTO_CMOS_ISO_SIZE  =         18; // distance between ISO 100 and ISO 200 addresses, in bytes
 

@@ -13,6 +13,9 @@ ML_MODULES ?= \
 	autoexpo \
 	arkanoid \
 	deflick \
+	ime_base \
+	ime_rot \
+	ime_std \
 	img_name \
 	lua \
 	bench \
