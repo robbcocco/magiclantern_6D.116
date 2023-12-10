@@ -1,6 +1,10 @@
 Magic Lantern
 =============
 
+This version includes bilalfakhouri's crop mood and sd overclock, along with xaint's astro module.
+
+=============
+
 Magic Lantern (ML) is a software enhancement that offers increased
 functionality to the excellent Canon DSLR cameras.
   
