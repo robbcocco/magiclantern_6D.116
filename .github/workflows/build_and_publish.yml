@@ -119,7 +119,29 @@ jobs:
         with:
           name: magiclantern-${{ github.event.inputs.platform }}
 
-      - name: Publish Release
+      - name: Unzip all.zip if platform is 'all'
+        if: ${{ github.event.inputs.platform == 'all' }}
+        run: |
+          unzip -o magiclantern.zip -d extracted
+
+      - name: Publish All
+        if: ${{ github.event.inputs.platform == 'all' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: extracted/*.zip
+          tag_name: all@${{ github.sha }}
+          name: ${{ github.event.inputs.name || format('Release for all platforms on branch {0}@{1}', github.ref_name, github.sha) }}
+          body: |
+            **Changelog:**
+            ${{ github.event.inputs.changelog }}
+
+            **Build Information:**
+            Branch: ${{ github.ref_name }}@${{ github.sha }}
+            Triggered by: ${{ github.actor }}
+          prerelease: ${{ github.event.inputs.prerelease }}
+
+      - name: Publish ${{ github.event.inputs.platform }}
+        if: ${{ github.event.inputs.platform != 'all' }}
         uses: softprops/action-gh-release@v2
         with:
           files: magiclantern.zip
