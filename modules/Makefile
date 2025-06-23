@@ -56,8 +56,7 @@ ML_MODULES = \
     crop_rec \
     dev_tools/edmac \
     yolo \
-    astro \
-    sd_uhs
+    astro
 
 .PHONY: clean $(BUILD_DIR)
 
