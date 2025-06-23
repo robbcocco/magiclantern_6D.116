@@ -13,7 +13,7 @@
 #include <shoot.h>
 #include <lens.h>
 #include <focus.h>
-#include "../mlv_lite/mlv_lite.h"
+#include "../raw_video/mlv_lite/mlv_lite.h"
 #include "../dual_iso/dual_iso.h"
 
 #undef CROP_DEBUG
