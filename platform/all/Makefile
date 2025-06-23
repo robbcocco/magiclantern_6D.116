@@ -52,4 +52,51 @@ ML_SRC_REBOOT_OBJ = reboot-all.o
 CONFIG_MODULES = n
 
 include  ../Makefile
-.DEFAULT_GOAL := $(BUILD_DIR)/cam_complete
+
+# Makefile to build and collect all camera zips into a single archive
+
+PLATFORM_DIR = ..
+BUILD_DIR = build
+
+include ../Makefile  # This brings in ML_CAMS
+
+# Where to collect all per-cam zips
+ALL_ZIP_DIR = $(BUILD_DIR)/all_zips
+ALL_CAMS_ZIP = $(BUILD_DIR)/magiclantern.zip
+
+# Each cam's zip is expected at <cam>/build/magiclantern.zip
+CAM_ZIPS = $(addsuffix /build/magiclantern.zip, $(ML_CAMS))
+
+.PHONY: all all_cams_zip clean cams_zips
+
+all: all_cams_zip
+
+# Build all camera zips
+cams_zips:
+	@for cam in $(ML_CAMS); do \
+	  echo "Building $$cam..."; \
+	  $(MAKE) -C ../$$cam; \
+	done
+
+# Collect all zips and create a single archive
+all_cams_zip: cams_zips | $(ALL_ZIP_DIR)
+	@echo "Copying all camera zips to $(ALL_ZIP_DIR)..."
+	@rm -f $(ALL_ZIP_DIR)/*.zip
+	@for cam in $(ML_CAMS); do \
+	  cp ../$$cam/build/magiclantern.zip $(ALL_ZIP_DIR)/magiclantern-$$cam.zip || true; \
+	done
+	@echo "Creating $(ALL_CAMS_ZIP)..."
+	@cd $(ALL_ZIP_DIR) && zip -r ../magiclantern.zip *.zip
+	@ls -l $(ALL_CAMS_ZIP)
+	@echo "All camera zips collected in $(ALL_CAMS_ZIP)"
+
+$(ALL_ZIP_DIR):
+	@mkdir -p $@
+
+clean:
+	@for cam in $(ML_CAMS); do \
+	  $(MAKE) -C ../$$cam clean; \
+	done
+	@rm -rf $(ALL_ZIP_DIR) $(ALL_CAMS_ZIP)
+
+.DEFAULT_GOAL := all
